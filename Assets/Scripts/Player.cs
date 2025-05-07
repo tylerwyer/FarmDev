@@ -7,11 +7,13 @@ public class Player : MonoBehaviour
     private Vector2 moveInput;
 
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -26,6 +28,15 @@ public class Player : MonoBehaviour
         {
             bool isMoving = moveInput.sqrMagnitude > 0;
             animator.SetBool("isMoving", isMoving);
+        }
+
+        // Flip sprite
+        if (spriteRenderer != null)
+        {
+            if (moveInput.x > 0)
+                spriteRenderer.flipX = false;
+            else if (moveInput.x < 0)
+                spriteRenderer.flipX = true;
         }
     }
     void FixedUpdate()
